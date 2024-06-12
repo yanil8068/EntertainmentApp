@@ -23,9 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [
-      "https://entertainment-app-h6om-89xtvn4tv-anil-yadavs-projects-2da9d738.vercel.app/",
-    ],
+    origin: ["https://entertainment-app-jags.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
