@@ -1,43 +1,30 @@
-const express = require("express");
-const {
-  trendingMedia,
-  movieMedia,
-  tvMedia,
-} = require("../controllers/media.controllers.js");
-const {
-  movieDetail,
-  tvDetail,
-} = require("../controllers/mediaDetail.controllers.js");
-const {
-  movieImageController,
-  tvImageController,
-} = require("../controllers/mediaImage.controllers.js");
-const {
-  findMovieController,
-  findTvController,
-  findAllController,
-} = require("../controllers/mediaSearch.controllers.js");
+const express = require('express');
+const { trendingMediaController, movieMediaController, tvMediaController } = require('../controllers/media.controllers.js');
+const { movieDetailController, tvDetailController } = require('../controllers/mediaDetail.controllers.js')
+const { movieImageController, tvImageController } = require('../controllers/mediaImage.controllers.js')
+const { searchMovieController, searchTvController, searchAllController } = require('../controllers/mediaSearch.controllers.js')
 
-// router instances
+// router instances 
 const mediaRouter = express.Router();
 
-// media routes
-mediaRouter.get("/media/trending/:page", trendingMedia);
-mediaRouter.get("/media/movie/:page", movieMedia);
-mediaRouter.get("/media/tv/:page", tvMedia);
+// media routes 
+mediaRouter.get("/media/trending/:page", trendingMediaController);
+mediaRouter.get("/media/movie/:page", movieMediaController);
+mediaRouter.get("/media/tv/:page", tvMediaController);
 
 // thumbnail image
-mediaRouter.get("/media/movie/image/:movieId", movieImageController);
-mediaRouter.get("/media/tv/image/:seriesId", tvImageController);
+mediaRouter.get('/media/movie/image/:movieId', movieImageController);
+mediaRouter.get('/media/tv/image/:seriesId', tvImageController);
 
 // details of movies and TvShows routes
-mediaRouter.get("/media/movie/detail/:movieId", movieDetail);
-mediaRouter.get("/media/tv/detail/:seriesId", tvDetail);
+mediaRouter.get("/media/movie/detail/:movieId", movieDetailController);
+mediaRouter.get("/media/tv/detail/:seriesId", tvDetailController);
 
 //searching movies, Tvshows, and all media routes
-mediaRouter.get("/media/movie/search/:searchQuery", findMovieController);
-mediaRouter.get("/media/tv/search/:searchQuery", findTvController);
-mediaRouter.get("/media/all/search/:searchQuery", findAllController);
+mediaRouter.get("/media/movie/search/:searchQuery", searchMovieController);
+mediaRouter.get("/media/tv/search/:searchQuery", searchTvController);
+mediaRouter.get("/media/all/search/:searchQuery", searchAllController);
 
-// exporting router
-module.exports = { mediaRouter };
+// exporting router 
+module.exports = { mediaRouter }
+

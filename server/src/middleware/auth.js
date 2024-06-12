@@ -1,24 +1,25 @@
-const Jwt = require("jsonwebtoken");
-const { User } = require("../models/user.models.js");
+const Jwt = require('jsonwebtoken')
+const { User } = require('../models/user.models.js')
 
-// middleware to check authentication
-const checkAuthentication = async (req, res, next) => {
-  const { token } = req.cookies; // cookies  = in built things
+// middleware to check authentication 
+const isAuthenticated = async (req, res, next) => {
 
-  if (!token)
-    return res.status(404).json({
-      success: false,
-      message: "Token Not Found, Please Login",
-    });
+    const { token } = req.cookies; // cookies  = in built things 
 
-  const secretToken = process.env.TOKEN;
+    if (!token) return res.status(404).json({
+        success: false,
+        message: 'Token Not Found, Please Login'
+    })
 
-  const decode = Jwt.verify(token, secretToken);
+    const secretToken = process.env.TOKEN;
 
-  // we are assigning req.user, a find by findinng from mongodb
-  req.user = await User.findById(decode._id);
+    const decode = Jwt.verify(token, secretToken);
 
-  next();
-};
+    // we are assigning req.user, a find by findinng from mongodb 
+    req.user = await User.findById(decode._id);
 
-module.exports = { checkAuthentication };
+    next();
+}
+
+
+module.exports = { isAuthenticated }
